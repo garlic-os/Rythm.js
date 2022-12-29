@@ -1,0 +1,57 @@
+:root {
+  --PIX-FRAME-1: url("./img/pix1.png");
+  --PIX-FRAME-2: url("./img/pix2.png");
+  --BIT-FRAME-1: url("./img/bit1.png");
+  --BIT-FRAME-2: url("./img/bit2.png");
+}
+
+body {
+  margin: 0;
+  background-image: url("./img/space.png");
+  background-size: contain;
+  animation: scroll 120s linear infinite;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+@keyframes scroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100vw -100vh;
+  }
+}
+
+.pix,
+.bit {
+  background-repeat: no-repeat;
+  background-size: 100%, 0;
+  transform-origin: bottom;
+}
+
+.pix {
+  background-image: var(--PIX-FRAME-1), var(--PIX-FRAME-2);
+  width: 462px;
+  height: 520px;
+  margin-right: 5rem;
+}
+
+.bit {
+  background-image: var(--BIT-FRAME-1), var(--BIT-FRAME-2);
+  width: 424px;
+  height: 476px;
+  margin-top: 0.5rem;
+}
+
+.go {
+  background-size: 0, 100%;
+}
+
+.bit.go {
+  margin-top: 2rem;
+}

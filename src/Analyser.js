@@ -1,58 +1,54 @@
-class Analyser {
-  constructor() {
-    this.startingScale = 0
-    this.pulseRatio = 1
-    this.maxValueHistory = 100
-    this.hzHistory = []
-  }
+const startingScale = 0;
+const pulseRatio = 1;
+const maxHistorySize = 100;
+const hzHistory = [];
 
-  initialise = analyser => {
-    this.analyser = analyser
-    this.analyser.fftSize = 2048
-  }
 
-  reset = () => {
-    this.hzHistory = []
-    this.frequences = new Uint8Array(this.analyser.frequencyBinCount)
-  }
-
-  analyse = () => {
-    this.analyser.getByteFrequencyData(this.frequences)
-    for (let i = 0; i < this.frequences.length; i++) {
-      if (!this.hzHistory[i]) {
-        this.hzHistory[i] = []
-      }
-      if (this.hzHistory[i].length > this.maxValueHistory) {
-        this.hzHistory[i].shift()
-      }
-      this.hzHistory[i].push(this.frequences[i])
-    }
-  }
-
-  getRangeAverageRatio = (startingValue, nbValue) => {
-    let total = 0
-    for (let i = startingValue; i < nbValue + startingValue; i++) {
-      total += this.getFrequenceRatio(i)
-    }
-    return total / nbValue
-  }
-
-  getFrequenceRatio = index => {
-    let min = 255
-    let max = 0
-    this.hzHistory[index].forEach(value => {
-      if (value < min) {
-        min = value
-      }
-      if (value > max) {
-        max = value
-      }
-    })
-    const scale = max - min
-    const actualValue = this.frequences[index] - min
-    const percentage = scale === 0 ? 0 : actualValue / scale
-    return this.startingScale + this.pulseRatio * percentage
-  }
+function getFrequencyRatio(index) {
+	let min = 255;
+	let max = 0;
+	for (const value of hzHistory[index]) {
+		if (value < min) {
+			min = value;
+		}
+		if (value > max) {
+			max = value;
+		}
+	}
+	const scale = max - min;
+	const actualValue = frequencies[index] - min;
+	const percentage = scale === 0 ? 0 : actualValue / scale;
+	return startingScale + pulseRatio * percentage;
 }
 
-export default new Analyser()
+
+export default {
+	/**
+	 * Add a frame of audio to the hzHistory buffer.
+	 * 
+	 * @param {number[]} frequencies - Array of floats from 0.0 to 1.0.
+	 *                                 Array elements 0 until 63 contain volume
+	 *                                 levels for the left channel.
+	 *                                 Array elements 64 until 127 contain the
+	 *                                 volume levels for the right channel.
+	 */
+	analyse: (frequencies) => {
+		for (let i = 0; i < frequencies.length; i++) {
+			if (!hzHistory[i]) {
+				hzHistory[i] = [];
+			}
+			if (hzHistory[i].length > maxHistorySize) {
+				hzHistory[i].shift();
+			}
+			hzHistory[i].push(frequencies[i]);
+		}
+	},
+
+	getRangeAverageRatio: (startingValue, nbValue) => {
+		let total = 0;
+		for (let i = startingValue; i < nbValue + startingValue; i++) {
+			total += getFrequencyRatio(i);
+		}
+		return total / nbValue;
+	}
+};
