@@ -16,7 +16,7 @@ function delay(ms) {
  * @todo: The true pattern is "crouch", "flip", "up", "down", then
  *                           "crouch", "flip" AND "up", "down".
  */
-export default (elem, value) => {
+export function dance(elem, value) {
 	const lastValue = elem.getAttribute("lastValue") || 0;
 	const timeOfLastFlip = elem.getAttribute("timeOfLastFlip") || 0;
 	const timeCondition = ((new Date().getTime()) - timeOfLastFlip) > 50;
