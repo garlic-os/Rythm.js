@@ -5,26 +5,25 @@
   --BIT-FRAME-2: url("./img/bit2.png");
 }
 
-body {
-  margin: 0;
-  background-image: url("./img/space.png");
-  background-size: contain;
-  animation: scroll 120s linear infinite;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-}
-
-@keyframes scroll {
+@keyframes bg-scroll {
   0% {
     background-position: 0 0;
   }
   100% {
     background-position: 100vw -100vh;
   }
+}
+
+body {
+  margin: 0;
+  background-image: url("./img/space.png");
+  animation: bg-scroll 120s linear infinite;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 .pix,
@@ -54,4 +53,16 @@ body {
 
 .bit.go {
   margin-top: 2rem;
+}
+
+#readout {
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 13.25ch;
+  height: 100vh;
+  font-size: 16pt;
+  letter-spacing: -0.5ch;
+  overflow: hidden;
+  transform: scaleX(1.5);
+  transform-origin: left;
 }
