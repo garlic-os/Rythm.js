@@ -1,4 +1,6 @@
 {
+	"contentrating" : "Everyone",
+	"description" : "Patricia Taxxon's Pix and Bit dancing like in the music video to Cilantro! Uses a (bad) beat detection algorithm to allow them to dance to any song.\n\nThe music video's set has been recreated in CSS using assets obctained from screenshots of the video.",
 	"file" : "index.html",
 	"general" : 
 	{
@@ -14,7 +16,13 @@
 		},
 		"supportsaudioprocessing" : true
 	},
-	"title" : "Cilantro",
+	"preview" : "preview.jpg",
+	"snapshotformat" : -1,
+	"snapshotoverlay" : "",
+	"tags" : [ "Cartoon" ],
+	"title" : "[REACTIVE] Cilantro",
 	"type" : "web",
-	"version" : 0
+	"version" : 1,
+	"workshopid" : "2908811432",
+	"workshopurl" : "steam://url/CommunityFilePage/2908811432"
 }
