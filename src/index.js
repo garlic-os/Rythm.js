@@ -49,7 +49,7 @@ function init() {
 		}
 	});
 
-	document.addEventListener("keyp", (event) => {
+	document.addEventListener("keyup", (event) => {
 		if (event.key === "s") {
 			unscare(pix);
 			unscare(bit);
