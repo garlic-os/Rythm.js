@@ -1,5 +1,5 @@
 import analyser from "./analyse.js";
-import spotify from "./spotify.js";
+import lyrics from "./lyrics.js";
 
 const girlfriends = document.querySelector(".girlfriends");
 
@@ -38,7 +38,7 @@ function renderGirlfriends(frequencies) {
 
 function init() {
 	window.wallpaperRegisterAudioListener(renderGirlfriends);
-	spotify.init();
+	lyrics.init();
 
 	let keyHeld = false;
 	document.addEventListener("keydown", (event) => {
