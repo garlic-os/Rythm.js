@@ -38,15 +38,20 @@ function renderGirlfriends(frequencies) {
 function init() {
 	window.wallpaperRegisterAudioListener(renderGirlfriends);
 
+	let keyHeld = false;
 	document.addEventListener("keydown", (event) => {
-		if (event.key === "s") {
+		console.log("Keydown", event.key);
+		if (event.key === "s" && !keyHeld) {
 			scare();
+			keyHeld = true;
 		}
 	});
 
 	document.addEventListener("keyup", (event) => {
+		console.log("Keyup", event.key);
 		if (event.key === "s") {
 			unscare();
+			keyHeld = false;
 		}
 	});
 }

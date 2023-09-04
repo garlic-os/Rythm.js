@@ -237,7 +237,7 @@ body {
 }
 
 .girlfriends.scared > div {
-	/* background-color: red; Debug */
+	background-color: red;
 	animation: jitter 500ms linear infinite;
 }
 
