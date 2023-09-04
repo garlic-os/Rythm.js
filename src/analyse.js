@@ -83,7 +83,7 @@ function detectBeat(frequencies) {
  * @param {number[]} frequencies - A Wallpaper Engine audio frame
  */
 function analyse(frequencies) {
-	for (let i = 0; i < frequencies.length / 2; i++) {  // only process left channel
+	for (let i = MIN_BAND_INDEX; i < MAX_BAND_INDEX; i++) {  // only process the bass of the left channel
 		if (!hzHistory[i]) {
 			hzHistory[i] = [];
 		}
