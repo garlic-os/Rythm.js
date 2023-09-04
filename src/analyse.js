@@ -1,15 +1,17 @@
 // Magic numbers for a function I didn't make
 const STARTING_SCALE = 0;
 const PULSE_RATIO = 1;
-const MAX_HISTORY_SIZE = 100;
-const START_VALUE = 0;  // Index of the first frequency to average
-const NB_VALUE = 3;  // Number of frequencies to average to the right of START_VALUE
+
+const MAX_HISTORY_SIZE = 30;
+const MIN_BAND_INDEX = 0;
+const MAX_BAND_INDEX = 3;
 const THESHOLD_LOW = 0.5;
 const THESHOLD_HIGH = 0.7;
+const COOLDOWN_PERIOD_SAMPLES = 6;
 
 const hzHistory = [];
 let lastLoudness = 0;
-let lastBeatTime = new Date().getTime();
+let samplesSinceLastBeat = 0;
 
 
 /**
@@ -52,20 +54,24 @@ function getFrequencyRatio(frequencies, index) {
  */
 function biasedAverageLoudness(frequencies) {
 	let total = 0;
-	for (let i = START_VALUE; i < NB_VALUE + START_VALUE; i++) {
+	for (let i = MIN_BAND_INDEX; i < MAX_BAND_INDEX + MIN_BAND_INDEX; i++) {
 		total += getFrequencyRatio(frequencies, i);
 	}
-	return sigmoid(total / NB_VALUE);
+	return sigmoid(total / MAX_BAND_INDEX);
 }
 
 
 function detectBeat(frequencies) {
 	let result = false;
 	const loudness = biasedAverageLoudness(frequencies);
-	const timeSinceLastBeat = new Date().getTime() - lastBeatTime;
-	if (lastLoudness < THESHOLD_LOW && loudness >= THESHOLD_HIGH && timeSinceLastBeat > 250) {
-		lastBeatTime = new Date().getTime();
+	const onCooldown = samplesSinceLastBeat <= COOLDOWN_PERIOD_SAMPLES;
+	const onRisingEdge = lastLoudness < THESHOLD_LOW;
+	const overThreshold = loudness >= THESHOLD_HIGH;
+	if (!onCooldown && onRisingEdge && overThreshold) {
 		result = true;
+		samplesSinceLastBeat = 0;
+	} else {
+		samplesSinceLastBeat++;
 	}
 	lastLoudness = loudness;
 	return result;
