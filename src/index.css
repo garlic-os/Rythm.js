@@ -292,15 +292,3 @@ body {
 .bit.go {
   margin-top: 2rem;
 }
-
-#readout {
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 13.25ch;
-  height: 100vh;
-  font-size: 16pt;
-  letter-spacing: -0.5ch;
-  overflow: hidden;
-  transform: scaleX(1.5);
-  transform-origin: left;
-}
