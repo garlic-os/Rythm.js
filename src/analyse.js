@@ -1,3 +1,4 @@
+// Magic numbers for a function I didn't make
 const STARTING_SCALE = 0;
 const PULSE_RATIO = 1;
 const MAX_HISTORY_SIZE = 100;
