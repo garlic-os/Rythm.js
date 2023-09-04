@@ -201,11 +201,29 @@ body.dev .lyrics {
 }
 
 body {
+	background-color: #060eb5;
 	margin: 0;
-	background-image: url("./img/space.png");
-	animation: bg-scroll 120s linear infinite;
+	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.shapes {
+	z-index: 0;
+	position: absolute;
+	left: 0; top: 0;
+	width: 100vw;
+	height: 100vh;
+	background-image: url("./img/shapes.png");
+	animation: bg-scroll 120s linear infinite;
+
+	/* Glow effect */
+	/* filter: blur(2px) brightness(1.5) contrast(1.5); */
+
 }
 
 .row {
