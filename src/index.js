@@ -1,26 +1,22 @@
 import analyser from "./analyse.js";
 import spotify from "./spotify.js";
 
-const pix = document.querySelector(".pix");
-const bit = document.querySelector(".bit");
+const girlfriends = document.querySelector(".girlfriends");
 
 
-/**
- * @param {HTMLElement} elem - The HTML element target to animate
- */
-function go(elem) {
-	elem.classList.toggle("frame1");
-	elem.classList.toggle("frame2");
+function go() {
+	girlfriends.classList.toggle("frame1");
+	girlfriends.classList.toggle("frame2");
 }
 
 
-function scare(elem) {
-	elem.classList.add("scared");
+function scare() {
+	girlfriends.classList.add("scared");
 }
 
 
-function unscare(elem) {
-	elem.classList.remove("scared");
+function unscare() {
+	girlfriends.classList.remove("scared");
 }
 
 
@@ -32,29 +28,32 @@ function unscare(elem) {
 function renderGirlfriends(frequencies) {
 	analyser.analyse(frequencies);
 	if (analyser.detectBeat(frequencies)) {
-		go(pix);
-		go(bit);
+		go();
 	}
 	// const loudness = analyser.bassLoudness();
 	// const thing = Math.round(10 * loudness);
 	// console.log("▮".repeat(thing) + "▯".repeat(10 - thing));
 }
 
+
 function init() {
 	window.wallpaperRegisterAudioListener(renderGirlfriends);
 	spotify.init();
 
+	let keyHeld = false;
 	document.addEventListener("keydown", (event) => {
-		if (event.key === "s") {
-			scare(pix);
-			scare(bit);
+		console.log("Keydown", event.key);
+		if (event.key === "s" && !keyHeld) {
+			scare();
+			keyHeld = true;
 		}
 	});
 
-	document.addEventListener("keyp", (event) => {
+	document.addEventListener("keyup", (event) => {
+		console.log("Keyup", event.key);
 		if (event.key === "s") {
-			unscare(pix);
-			unscare(bit);
+			unscare();
+			keyHeld = false;
 		}
 	});
 }
