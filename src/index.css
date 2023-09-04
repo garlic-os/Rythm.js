@@ -1,50 +1,291 @@
 :root {
-  --PIX-FRAME-1: url("./img/pix1.png");
-  --PIX-FRAME-2: url("./img/pix2.png");
-  --BIT-FRAME-1: url("./img/bit1.png");
-  --BIT-FRAME-2: url("./img/bit2.png");
+	--pix-frame-1: url("./img/pix1.png");
+	--pix-frame-2: url("./img/pix2.png");
+	--pix-frame-3: url("./img/pix3.png");
+	--bit-frame-1: url("./img/bit1.png");
+	--bit-frame-2: url("./img/bit2.png");
+	--bit-frame-3: url("./img/bit3.png");
+	--frame-transition-duration: 66ms;
 }
 
 @keyframes bg-scroll {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 100vw -100vh;
-  }
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 100vw -100vh;
+	}
+}
+
+@keyframes jitter {
+	/* Source: https://css-tricks.com/css-animation-tricks/ */
+	0% {
+		transform: translate(0, 0);
+	}
+	9.999% {
+		transform: translate(0, 0);
+	}
+	10% {
+		transform: translate(10px, 0);
+	}
+	19.999% {
+		transform: translate(10px, 0);
+	}
+	20% {
+		transform: translate(-10px, -4px);
+	}
+	29.999% {
+		transform: translate(-10px, -4px);
+	}
+	30% {
+		transform: translate(-6px, 0);
+	}
+	39.999% {
+		transform: translate(-6px, 0);
+	}
+	40% {
+		transform: translate(16px, 4px);
+	}
+	49.999% {
+		transform: translate(16px, 4px);
+	}
+	50% {
+		transform: translate(-10px, 8px);
+	}
+	59.999% {
+		transform: translate(-10px, 8px);
+	}
+	60% {
+		transform: translate(-20px, 12px);
+	}
+	69.999% {
+		transform: translate(-20px, 12px);
+	}
+	70% {
+		transform: translate(-14px, 15px);
+	}
+	79.999% {
+		transform: translate(-14px, 15px);
+	}
+	80% {
+		transform: translate(-12px, 4px);
+	}
+	89.999% {
+		transform: translate(-12px, 4px);
+	}
+	90% {
+		transform: translate(-6px,-15px);
+	}
+	99.999% {
+		transform: translate(-6px, -10px);
+	}
+	100% {
+		transform: translate(-2px, 4px);
+	}
+}
+
+/* Adds squash and stretch to the animation */
+@keyframes pix-to-frame-2 {
+	0% {
+		background-size: auto, 0;
+		transform: scaleY(0.95);
+	}
+	49.999% {
+		background-size: auto, 0;
+		transform: scaleY(0.95);
+	}
+	50% {
+		background-size: 0, auto;
+		transform: scaleY(1.05);
+	}
+	99.999% {
+		background-size: 0, auto;
+		transform: scaleY(1.05);
+	}
+	100% {
+		background-size: 0, auto;
+		transform: scaleY(1);
+	}
+}
+
+@keyframes pix-to-frame-1 {
+	0% {
+		background-size: 0, auto;
+		transform: scaleY(0.95);
+	}
+	49.999% {
+		background-size: 0, auto;
+		transform: scaleY(0.95);
+	}
+	50% {
+		background-size: auto, 0;
+		transform: scaleY(1.05);
+	}
+	99.999% {
+		background-size: auto, 0;
+		transform: scaleY(1.05);
+	}
+	100% {
+		background-size: auto, 0;
+		transform: scaleY(1);
+	}
+}
+
+@keyframes bit-to-frame-2 {
+	0% {
+		background-size: auto, 0;
+		transform: scaleY(0.95);
+		margin-top: initial;
+	}
+	49.999% {
+		background-size: auto, 0;
+		transform: scaleY(0.95);
+		margin-top: initial;
+	}
+	50% {
+		background-size: 0, auto;
+		transform: scaleY(1.05);
+		margin-top: 2rem; /* Magic number to make her eye level with Pix */
+	}
+	99.999% {
+		background-size: 0, auto;
+		transform: scaleY(1.05);
+		margin-top: 2rem;
+	}
+	100% {
+		background-size: 0, auto;
+		transform: scaleY(1);
+		margin-top: 2rem;
+	}
+}
+
+@keyframes bit-to-frame-1 {
+	0% {
+		background-size: 0, auto;
+		transform: scaleY(0.95);
+		margin-top: 2rem;
+	}
+	49.999% {
+		background-size: 0, auto;
+		transform: scaleY(0.95);
+		margin-top: 2rem;
+	}
+	50% {
+		background-size: auto, 0;
+		transform: scaleY(1.05);
+		margin-top: initial;
+	}
+	99.999% {
+		background-size: auto, 0;
+		transform: scaleY(1.05);
+		margin-top: initial;
+	}
+	100% {
+		background-size: auto, 0;
+		transform: scaleY(1);
+		margin-top: initial;
+	}
 }
 
 body {
-  margin: 0;
-  background-image: url("./img/space.png");
-  animation: bg-scroll 120s linear infinite;
+	margin: 0;
+	background-image: url("./img/space.png");
+	animation: bg-scroll 120s linear infinite;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+}
 }
 
 .pix,
 .bit {
-  background-repeat: no-repeat;
-  background-size: 100%, 0;
-  transform-origin: bottom;
+	background-repeat: no-repeat;
+	background-size: auto, 0;
+	background-position: center;
+	transform-origin: bottom;
+	width: 476px;
+	height: 584px;
 }
 
 .pix {
-  background-image: var(--PIX-FRAME-1), var(--PIX-FRAME-2);
-  width: 462px;
-  height: 520px;
-  margin-right: 5rem;
+	background-image: var(--pix-frame-1), var(--pix-frame-2);
+	margin-right: 5rem;
+	margin-top: 2.5rem;
 }
 
 .bit {
-  background-image: var(--BIT-FRAME-1), var(--BIT-FRAME-2);
-  width: 424px;
-  height: 476px;
-  margin-top: 0.5rem;
+	background-image: var(--bit-frame-1), var(--bit-frame-2);
+}
+
+.pix.frame1 {
+	animation: pix-to-frame-1 var(--frame-transition-duration) linear forwards;
+}
+
+.pix.frame2 {
+	animation: pix-to-frame-2 var(--frame-transition-duration) linear forwards;
+}
+
+.bit.frame1 {
+	animation: bit-to-frame-1 var(--frame-transition-duration) linear forwards;
+}
+
+.bit.frame2 {
+	animation: bit-to-frame-2 var(--frame-transition-duration) linear forwards;
+}
+
+.pix.scared,
+.bit.scared {
+	/* background-color: red; Debug */
+	animation: jitter 500ms linear infinite;
+}
+
+.bit.scared {
+	animation-delay: -100ms;
+}
+
+.pix.scared {
+	background-image: var(--pix-frame-3), var(--pix-frame-3);
+}
+
+.bit.scared {
+	background-image: var(--bit-frame-3), var(--bit-frame-3);
+}
+
+.pix::after,
+.bit::after {
+	content: "";
+	display: block;
+	opacity: 0;
+	position: relative;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 110px;
+	height: 110px;
+	animation: jitter 500ms linear infinite;
+}
+
+.pix::after {
+	left: -40px; top: 125px;
+	background-image: url("./img/pix-ring.png");
+	animation-delay: -200ms;
+}
+
+.bit::after {
+	left: 170px; top: -40px;
+	background-image: url("./img/bit-tiara.png");
+	animation-delay: -400ms;
+}
+
+.pix.scared::after,
+.bit.scared::after {
+	opacity: 1;
+}
+
 }
 
 .go {

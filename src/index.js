@@ -1,50 +1,60 @@
-// const readout = document.querySelector("#readout");
-// window.addEventListener("error", (error) => {
-// 	readout.textContent += error.message + "\n";
-// });
-
-
 import analyser from "./analyse.js";
 
 const pix = document.querySelector(".pix");
 const bit = document.querySelector(".bit");
 
 
-function delay(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-
 /**
  * @param {HTMLElement} elem - The HTML element target to animate
- * @todo: The true pattern is "crouch", "flip", "up", "down", then
- *                            "crouch", "flip" AND "up", "down".
  */
-async function go(elem) {
-	elem.style.transform = `scaleY(0.95)`;  // crouch
-	await delay(33);
-	elem.classList.toggle("go");  // flip
-	elem.style.transform = `scaleY(1.05)`;  // up
-	await delay(33)
-	elem.style.transform = "";  // down
+function go(elem) {
+	elem.classList.toggle("frame1");
+	elem.classList.toggle("frame2");
+}
+
+
+function scare(elem) {
+	elem.classList.add("scared");
+}
+
+
+function unscare(elem) {
+	elem.classList.remove("scared");
 }
 
 
 /**
- * Process incoming audio.
- * Data format detailed here: https://docs.wallpaperengine.io/en/web/audio/visualizer.html
+ * Process incoming audio and update Pix and Bit accordingly.
+ * Data format: https://docs.wallpaperengine.io/en/web/audio/visualizer.html
  * @param {number[]} frequencies - A Wallpaper Engine audio frame
  */
-window.wallpaperRegisterAudioListener((frequencies) => {
+function renderGirlfriends(frequencies) {
 	analyser.analyse(frequencies);
 	if (analyser.detectBeat(frequencies)) {
 		go(pix);
 		go(bit);
 	}
-
-	// const loudness = analyser.biasedAverageLoudness(frequencies);
+	// const loudness = analyser.bassLoudness();
 	// const thing = Math.round(10 * loudness);
-	// readout.textContent += "▮".repeat(thing) + "▯".repeat(10 - thing) + "\n";
-	// readout.scrollTop = readout.scrollHeight;
-	// if (readout.textContent.length > 10000) readout.textContent = "";
-});
+	// console.log("▮".repeat(thing) + "▯".repeat(10 - thing));
+}
+
+function init() {
+	window.wallpaperRegisterAudioListener(renderGirlfriends);
+
+	document.addEventListener("keydown", (event) => {
+		if (event.key === "s") {
+			scare(pix);
+			scare(bit);
+		}
+	});
+
+	document.addEventListener("keyp", (event) => {
+		if (event.key === "s") {
+			unscare(pix);
+			unscare(bit);
+		}
+	});
+}
+
+init();
