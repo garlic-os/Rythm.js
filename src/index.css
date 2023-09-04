@@ -191,13 +191,28 @@ body {
 	margin: 0;
 	background-image: url("./img/space.png");
 	animation: bg-scroll 120s linear infinite;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.row {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.title {
+	top: 24px;
+	font-size: 200pt;
+	margin: 0;
+	color: orange;
 }
 
 .girlfriends {
+	top: 220px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
 }
 
 .pix,
@@ -212,8 +227,9 @@ body {
 
 .pix {
 	background-image: var(--pix-frame-1), var(--pix-frame-2);
-	margin-right: 5rem;
 	margin-top: 2.5rem;
+	margin-left: 1rem;
+	margin-right: 3rem;
 }
 
 .bit {
@@ -286,11 +302,13 @@ body {
 	--stroke-width: 3px;
 	--stroke-color: #000;
 	color: #FFE206;
-	font-size: 46px;
-	height: 46px;
-	font-family: "Jetbrains Mono", Courier, monospace;
+	width: 200%;
+	transform: translateX(-50%) scaleX(0.65);
+	text-align: center;
+	font-size: 70px;
+	font-family: Courier, monospace;
 	font-weight: bold;
-	letter-spacing: -1px;
+	letter-spacing: 6px;
 	margin: 0;
 	text-shadow: /* Smooth text outline */
 				 /* Source: https://dev.to/codingdudecom/everything-about-stroke-text-in-css-561i */
@@ -315,10 +333,20 @@ body {
 }
 
 .lyrics.main {
-	margin-top: 0.5rem;
+	bottom: 80px;
 }
 
 .lyrics.secondary {
-	margin-top: 4rem;
+	bottom: 160px; 
 	color: #E487CE;
+}
+
+
+.goal {
+	position: absolute;
+	left: 0; top: 0;
+	width: 100vw;
+	height: 100vh;
+	opacity: 0.5;
+	display: none;
 }
