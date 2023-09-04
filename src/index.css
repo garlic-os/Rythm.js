@@ -199,7 +199,6 @@ body {
 	width: 100vw;
 	height: 100vh;
 }
-}
 
 .pix,
 .bit {
@@ -284,8 +283,6 @@ body {
 .pix.scared::after,
 .bit.scared::after {
 	opacity: 1;
-}
-
 }
 
 .go {
