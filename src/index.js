@@ -1,10 +1,13 @@
+// <debug>
+// const MAX_BAND_INDEX = 3;
 // const readout = document.querySelector("#readout");
 // window.addEventListener("error", (error) => {
 // 	readout.textContent += error.message + "\n";
 // });
+// </debug>
 
 
-import analyser from "./analyse.js";
+import { detectBeat } from "./analyse.js";
 
 const pix = document.querySelector(".pix");
 const bit = document.querySelector(".bit");
@@ -36,15 +39,16 @@ async function go(elem) {
  * @param {number[]} frequencies - A Wallpaper Engine audio frame
  */
 window.wallpaperRegisterAudioListener((frequencies) => {
-	analyser.analyse(frequencies);
-	if (analyser.detectBeat(frequencies)) {
+	if (detectBeat(frequencies)) {
 		go(pix);
 		go(bit);
 	}
 
-	// const loudness = analyser.biasedAverageLoudness(frequencies);
+	// <debug>
+	// const loudness = Math.max(frequencies.slice(0, MAX_BAND_INDEX+1));
 	// const thing = Math.round(10 * loudness);
 	// readout.textContent += "▮".repeat(thing) + "▯".repeat(10 - thing) + "\n";
 	// readout.scrollTop = readout.scrollHeight;
 	// if (readout.textContent.length > 10000) readout.textContent = "";
+	// </debug>
 });
