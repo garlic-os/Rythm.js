@@ -77,6 +77,17 @@ function detectBeat(frequencies) {
 	return result;
 }
 
+// /**
+//  * @returns {number} Average value from the range of frequencies
+//  */
+// function bassLoudness() {
+// 	let loudest = 0;
+// 	for (let i = START_VALUE; i < START_VALUE + NB_VALUE; i++) {
+// 		loudest = Math.max(loudest, normalize(i));
+// 	}
+// 	return Math.min(1, sigmoid(loudest));
+// }
+
 
 /**
  * Add a frame of audio to the hzHistory buffer.

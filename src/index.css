@@ -199,6 +199,11 @@ body {
 	width: 100vw;
 	height: 100vh;
 }
+
+.row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .pix,
@@ -286,24 +291,55 @@ body {
 	opacity: 1;
 }
 
+.lyrics {
+	--stroke-width: 3px;
+	--stroke-color: #000;
+	color: #FFE206;
+	font-size: 46px;
+	height: 46px;
+	font-family: "Jetbrains Mono", Courier, monospace;
+	font-weight: bold;
+	letter-spacing: -1px;
+	margin: 0;
+	text-shadow: /* Smooth text outline */
+				 /* Source: https://dev.to/codingdudecom/everything-about-stroke-text-in-css-561i */
+				 var(--stroke-width) 0 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.9239) calc(var(--stroke-width) * 0.3827) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.7071) calc(var(--stroke-width) * 0.7071) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.3827) calc(var(--stroke-width) * 0.9239) 0 var(--stroke-color),
+				 0 var(--stroke-width) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.3827) calc(var(--stroke-width) * 0.9239) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.7071) calc(var(--stroke-width) * 0.7071) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.9239) calc(var(--stroke-width) * 0.3827) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -1) 0 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.9239) calc(var(--stroke-width) * -0.3827) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.7071) calc(var(--stroke-width) * -0.7071) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.3827) calc(var(--stroke-width) * -0.9239) 0 var(--stroke-color),
+				 0 calc(var(--stroke-width) * -1) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.3827) calc(var(--stroke-width) * -0.9239) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.7071) calc(var(--stroke-width) * -0.7071) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.9239) calc(var(--stroke-width) * -0.3827) 0 var(--stroke-color),
+				 0 0 85px #FFF, /* White glow */
+				 0 0 50px #FFF;
 }
 
-.go {
-  background-size: 0, 100%;
+.lyrics.main {
+	margin-top: 0.5rem;
 }
 
-.bit.go {
-  margin-top: 2rem;
+.lyrics.secondary {
+	margin-top: 4rem;
+	color: #E487CE;
 }
 
-#readout {
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 13.25ch;
-  height: 100vh;
-  font-size: 16pt;
-  letter-spacing: -0.5ch;
-  overflow: hidden;
-  transform: scaleX(1.5);
-  transform-origin: left;
+#debug-log {
+	position: absolute;
+	left: 0; bottom: 0;
+	width: 13.25ch;
+	height: 100vh;
+	font-size: 16pt;
+	letter-spacing: -0.5ch;
+	overflow: hidden;
+	transform: scaleX(1.5);
+	transform-origin: left;
 }

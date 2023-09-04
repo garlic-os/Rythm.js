@@ -12,17 +12,21 @@
 				"text" : "ui_browse_properties_scheme_color",
 				"type" : "color",
 				"value" : "0.023529411764705882 0.054901960784313725 0.7098039215686275"
+			},
+			"spotifytoken" : 
+			{
+				"index" : 0,
+				"order" : 100,
+				"text" : "Spotify Token",
+				"type" : "textinput",
+				"value" : ""
 			}
 		},
 		"supportsaudioprocessing" : true
 	},
 	"preview" : "preview.jpg",
-	"snapshotformat" : -1,
-	"snapshotoverlay" : "",
 	"tags" : [ "Cartoon" ],
-	"title" : "[REACTIVE] Cilantro",
+	"title" : "Cilantro (Visualizer + Spotify Lyrics)",
 	"type" : "web",
-	"version" : 1,
-	"workshopid" : "2908811432",
-	"workshopurl" : "steam://url/CommunityFilePage/2908811432"
+	"version" : 0
 }

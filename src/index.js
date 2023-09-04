@@ -1,4 +1,5 @@
 import analyser from "./analyse.js";
+import spotify from "./spotify.js";
 
 const pix = document.querySelector(".pix");
 const bit = document.querySelector(".bit");
@@ -41,6 +42,7 @@ function renderGirlfriends(frequencies) {
 
 function init() {
 	window.wallpaperRegisterAudioListener(renderGirlfriends);
+	spotify.init();
 
 	document.addEventListener("keydown", (event) => {
 		if (event.key === "s") {
