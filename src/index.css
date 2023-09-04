@@ -191,12 +191,12 @@ body {
 	margin: 0;
 	background-image: url("./img/space.png");
 	animation: bg-scroll 120s linear infinite;
+}
 
+.girlfriends {
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 100vw;
 	height: 100vh;
 }
 
@@ -220,42 +220,40 @@ body {
 	background-image: var(--bit-frame-1), var(--bit-frame-2);
 }
 
-.pix.frame1 {
+.girlfriends.frame1 > .pix {
 	animation: pix-to-frame-1 var(--frame-transition-duration) linear forwards;
 }
 
-.pix.frame2 {
+.girlfriends.frame2 > .pix {
 	animation: pix-to-frame-2 var(--frame-transition-duration) linear forwards;
 }
 
-.bit.frame1 {
+.girlfriends.frame1 > .bit {
 	animation: bit-to-frame-1 var(--frame-transition-duration) linear forwards;
 }
 
-.bit.frame2 {
+.girlfriends.frame2 > .bit {
 	animation: bit-to-frame-2 var(--frame-transition-duration) linear forwards;
 }
 
-.pix.scared,
-.bit.scared {
+.girlfriends.scared > div {
 	/* background-color: red; Debug */
 	animation: jitter 500ms linear infinite;
 }
 
-.bit.scared {
+.girlfriends.scared > .bit {
 	animation-delay: -100ms;
 }
 
-.pix.scared {
+.girlfriends.scared > .pix {
 	background-image: var(--pix-frame-3), var(--pix-frame-3);
 }
 
-.bit.scared {
+.girlfriends.scared > .bit {
 	background-image: var(--bit-frame-3), var(--bit-frame-3);
 }
 
-.pix::after,
-.bit::after {
+.girlfriends > div::after {
 	content: "";
 	display: block;
 	opacity: 0;
@@ -280,8 +278,7 @@ body {
 	animation-delay: -400ms;
 }
 
-.pix.scared::after,
-.bit.scared::after {
+.girlfriends.scared > div::after {
 	opacity: 1;
 }
 
