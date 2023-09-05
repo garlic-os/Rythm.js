@@ -8,6 +8,13 @@ let lyricsEnabled = false;
 
 // 30 minutes, half the token's lifetime
 const TOKEN_REFRESH_INTERVAL = 1000 * 60 * 60 / 2;
+
+// Delay before displaying lyrics.
+// Most lyric timings from Spotify were made with karaoke in mind where it's
+// desirable for the lyrics to show up a split second before they're sung.
+// Here though, we just want them to show up right on time.
+const DISPLAY_DELAY_MS = 500;
+
 let tokenTimer = Date.now() - TOKEN_REFRESH_INTERVAL;
 let spotifyRefreshToken = "";
 let spotifyAccessToken = "";
@@ -46,7 +53,7 @@ function show() {
  * @returns {String[]} main and secondary string of lyrics
  */
 function parse(words) {
-	let [main, secondary] = words.split(" (");
+	let [ main, secondary ] = words.split(" (");
 	secondary = secondary ? "(" + secondary : "";
 	if (main === "♪") {
 		main = "";
@@ -54,7 +61,14 @@ function parse(words) {
 		secondary = main;
 		main = "";
 	}
-	return [main, secondary];
+	return { main, secondary };
+}
+
+
+function delay(ms) {
+	return new Promise( (resolve) => {
+		setTimeout(resolve, ms);
+	});
 }
 
 
@@ -62,28 +76,44 @@ function parse(words) {
  * Display the lyrics in time with the music.
  * @returns {void}
  */
-function render() {
-	if (!lyricsEnabled) return;
-	show();
-	if (lyricsData === null || lyricsIndex >= lyricsData.length - 1) {
-		// Reached the end of the lyrics
-		return;
-	}
-	let { startTimeMs, endTimeMs, words } = lyricsData.lines[lyricsIndex];
-	startTimeMs = parseInt(startTimeMs);
-	endTimeMs = parseInt(endTimeMs);
-	const currentPositionMs = lastSpotifyPosition + Date.now() - lastUnpauseTime;
-	if (endTimeMs !== 0 && currentPositionMs >= endTimeMs) {
-		clear();
-		lyricsIndex++;
-	}
-	else if (currentPositionMs >= startTimeMs) {
-		const [main, secondary] = parse(words);
+async function render() {
+	let lastPosition = -1;
+	for (let i = 0; i < lyricsData.lines.length && lyricsEnabled && lyricsData; i++) {
+		show();
+
+		const positionMs = lastSpotifyPosition + Date.now() - lastUnpauseTime - DISPLAY_DELAY_MS;
+
+		// If the user has rewound the song, restart the loop to regain our place
+		if (positionMs < lastPosition) {
+			i = -1;
+			continue;
+		}
+
+		// Get the earliest line that is at or after the current position
+		const line = lyricsData.lines[i];
+		if (line.startTimeMs < positionMs) {
+			continue;
+		}
+		
+		// Wait until it's time to show the line
+		await delay(line.startTimeMs - positionMs);
+
+		// Display the line
+		const { main, secondary } = parse(line.words);
 		secondaryLyrics.textContent = secondary;
 		mainLyrics.textContent = main;
-		lyricsIndex++;
+
+		// If the line contains an end time, set a timeout to clear the line
+		// at that time
+		if (line.endTimeMs !== 0) {
+			setTimeout(() => {
+				if (!lyricsEnabled) return;  // Keep the lyrics there if paused
+				clear();
+			}, line.endTimeMs - positionMs);
+		}
+
+		lastPosition = positionMs;
 	}
-	window.requestAnimationFrame(render);
 }
 
 
@@ -183,7 +213,7 @@ export default {
 				case window.wallpaperMediaIntegration.PLAYBACK_PLAYING:
 					console.log("Play");
 					lyricsEnabled = spotifyRefreshToken !== "";
-					window.requestAnimationFrame(render);
+					render();
 					checkSongChange();
 					break;
 				case window.wallpaperMediaIntegration.PLAYBACK_PAUSED:
