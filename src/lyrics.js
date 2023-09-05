@@ -6,19 +6,19 @@ const secondaryLyrics = document.querySelector(".secondary.lyrics");
 
 let lyricsEnabled = false;
 
-const TOKEN_REFRESH_INTERVAL = 1000 * 60 * 60 / 2; // 30 minutes, half the token's lifetime
+// 30 minutes, half the token's lifetime
+const TOKEN_REFRESH_INTERVAL = 1000 * 60 * 60 / 2;
 let tokenTimer = Date.now() - TOKEN_REFRESH_INTERVAL;
 let spotifyRefreshToken = "";
 let spotifyAccessToken = "";
-let trackID = "";
 
 let lastUnpauseTime = Date.now();
 let lastSpotifyPosition = 0;
 
-let lastTitle = "";
-let lyricsData = null;
-let lyricsIndex = 0;
+let trackID = "";
+let songTitle = "";
 
+let lyricsData = null;
 
 
 function clear() {
@@ -196,8 +196,8 @@ export default {
 
 		window.wallpaperRegisterMediaPropertiesListener( (event) => {
 			console.log("Song change");
-			if (event.title !== lastTitle) {
-				lastTitle = event.title;
+			if (event.title !== songTitle) {
+				songTitle = event.title;
 				checkSongChange();
 			}
 		});
