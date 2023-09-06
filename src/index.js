@@ -36,26 +36,20 @@ function renderGirlfriends(frequencies) {
 }
 
 
-function init() {
-	window.wallpaperRegisterAudioListener(renderGirlfriends);
-	lyrics.init();
+window.wallpaperRegisterAudioListener(renderGirlfriends);
+lyrics.init();
 
-	let keyHeld = false;
-	document.addEventListener("keydown", (event) => {
-		console.log("Keydown", event.key);
-		if (event.key === "s" && !keyHeld) {
-			scare();
-			keyHeld = true;
-		}
-	});
+let keyHeld = false;
+document.addEventListener("keydown", (event) => {
+	if (event.key === "s" && !keyHeld) {
+		scare();
+		keyHeld = true;
+	}
+});
 
-	document.addEventListener("keyup", (event) => {
-		console.log("Keyup", event.key);
-		if (event.key === "s") {
-			unscare();
-			keyHeld = false;
-		}
-	});
-}
-
-init();
+document.addEventListener("keyup", (event) => {
+	if (event.key === "s") {
+		unscare();
+		keyHeld = false;
+	}
+});
