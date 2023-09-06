@@ -79,8 +79,6 @@ function delay(ms) {
 async function render() {
 	let lastPosition = -1;
 	for (let i = 0; i < lyricsData.lines.length && lyricsEnabled && lyricsData; i++) {
-		show();
-
 		const positionMs = lastSpotifyPosition + Date.now() - lastUnpauseTime - DISPLAY_DELAY_MS;
 
 		// If the user has rewound the song, restart the loop to regain our place
@@ -102,6 +100,7 @@ async function render() {
 		const { main, secondary } = parse(line.words);
 		secondaryLyrics.textContent = secondary;
 		mainLyrics.textContent = main;
+		show();
 
 		// If the line contains an end time, set a timeout to clear the line
 		// at that time
