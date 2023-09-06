@@ -78,7 +78,7 @@ function delay(ms) {
  */
 async function render() {
 	let lastPosition = -1;
-	for (let i = 0; i < lyricsData.lines.length && lyricsEnabled && lyricsData; i++) {
+	for (let i = 0; lyricsEnabled && i < lyricsData?.lines.length; i++) {
 		const positionMs = lastSpotifyPosition + Date.now() - lastUnpauseTime - DISPLAY_DELAY_MS;
 
 		// If the user has rewound the song, restart the loop to regain our place
