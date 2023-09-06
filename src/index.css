@@ -8,6 +8,19 @@
 	--frame-transition-duration: 66ms;
 }
 
+/* body.dev {
+	background-color: #000 !important;
+	background-image: none !important;
+}
+
+body.dev .girlfriends {
+	visibility: hidden !important;
+}
+
+body.dev .lyrics {
+	text-shadow: none !important;
+} */
+
 @keyframes bg-scroll {
 	0% {
 		background-position: 0 0;

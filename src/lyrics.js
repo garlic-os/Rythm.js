@@ -181,6 +181,7 @@ async function checkSongChange() {
 
 async function refreshAccessToken() {
 	console.log("Refreshing access token");
+	// return;
 	tokenTimer = Date.now();
 	const response = await fetch("https://spotify-visualiser.vercel.app/api/refresh?refresh_token=" + spotifyRefreshToken);
 	if (response.status !== 200) {
@@ -203,6 +204,27 @@ export default {
 		 * Event format: https://docs.wallpaperengine.io/en/web/audio/media.html
 		 * @param {object} event - The event object
 		 */
+
+		// window.wallpaperMediaIntegration = {
+		// 	PLAYBACK_PLAYING: 0,
+		// 	PLAYBACK_PAUSED: 1,
+		// 	PLAYBACK_STOPPED: 2,
+		// };
+		// document.addEventListener("keypress", (event) => {
+		// 	if (event.key === "z") {
+		// 		mediaPlaybackListener({ state: window.wallpaperMediaIntegration.PLAYBACK_PLAYING });
+		// 	}
+		// 	else if (event.key === "x") {
+		// 		mediaPlaybackListener({ state: window.wallpaperMediaIntegration.PLAYBACK_PAUSED });
+		// 	}
+		// 	else if (event.key === "c") {
+		// 		mediaTimelineListener({ position: 0 });
+		// 	}
+		// });
+		
+
+		// spotifyRefreshToken = "test";
+		// const mediaPlaybackListener = (event) => {
 		window.wallpaperRegisterMediaPlaybackListener( (event) => {
 			switch (event.state) {
 				case window.wallpaperMediaIntegration.PLAYBACK_PLAYING:
