@@ -1,4 +1,4 @@
-import analyser from "./analyse.js";
+import detector from "./beat-detector.js";
 import lyrics from "./lyrics.js";
 
 const girlfriends = document.querySelector(".girlfriends");
@@ -26,11 +26,11 @@ function unscare() {
  * @param {number[]} frequencies - A Wallpaper Engine audio frame
  */
 function renderGirlfriends(frequencies) {
-	analyser.analyse(frequencies);
-	if (analyser.detectBeat(frequencies)) {
+	detector.analyse(frequencies);
+	if (detector.detectBeat(frequencies)) {
 		go();
 	}
-	// const loudness = analyser.bassLoudness();
+	// const loudness = detector.bassLoudness();
 	// const thing = Math.round(10 * loudness);
 	// console.log("▮".repeat(thing) + "▯".repeat(10 - thing));
 }
