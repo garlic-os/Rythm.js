@@ -138,7 +138,7 @@ async function onSongChange() {
 }
 
 
-async function checkSongChange() {
+async function refreshSpotifyStatus() {
 	if (!lyricsEnabled) return;
 	console.log("Checking song change");
 	lastUnpauseTime = Date.now();
@@ -232,8 +232,7 @@ export default {
 				case window.wallpaperMediaIntegration.PLAYBACK_PLAYING:
 					console.log("Play");
 					lyricsEnabled = spotifyRefreshToken !== "";
-					render();
-					checkSongChange();
+					refreshSpotifyStatus().then(render);
 					break;
 				case window.wallpaperMediaIntegration.PLAYBACK_PAUSED:
 				case window.wallpaperMediaIntegration.PLAYBACK_STOPPED:
@@ -247,7 +246,7 @@ export default {
 			console.log("Song change");
 			if (event.title !== songTitle) {
 				songTitle = event.title;
-				checkSongChange();
+				refreshSpotifyStatus();
 			}
 		});
 
@@ -261,7 +260,7 @@ export default {
 			applyUserProperties: (properties) => {
 				spotifyRefreshToken = properties?.spotifytoken?.value ?? "";
 				lyricsEnabled = spotifyRefreshToken !== "";
-				checkSongChange();
+				refreshSpotifyStatus();
 			},
 		};
 	}
