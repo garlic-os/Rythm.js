@@ -138,7 +138,6 @@ async function onSongChange() {
 		return;
 	}
 	lyricsData = data;
-	lyricsIndex = 0;
 }
 
 
