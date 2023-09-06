@@ -106,10 +106,7 @@ async function render() {
 		// If the line contains an end time, set a timeout to clear the line
 		// at that time
 		if (line.endTimeMs !== 0) {
-			setTimeout(() => {
-				if (!lyricsEnabled) return;  // Keep the lyrics there if paused
-				clear();
-			}, line.endTimeMs - positionMs);
+			setTimeout(clear, line.endTimeMs - positionMs);
 		}
 
 		lastPosition = positionMs;
