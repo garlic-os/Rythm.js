@@ -4,6 +4,10 @@
 const mainLyrics = document.querySelector(".main.lyrics");
 const secondaryLyrics = document.querySelector(".secondary.lyrics");
 
+// True when:
+// - The user has entered a valid Spotify token and
+// - Spotify is playing and
+// - The current song contains synced lyrics
 let lyricsEnabled = false;
 
 // 30 minutes, half the token's lifetime
@@ -26,6 +30,7 @@ let trackID = "";
 let songTitle = "";
 
 let lyricsData = null;
+let rendering = false;
 
 
 function clear() {
@@ -77,8 +82,9 @@ function delay(ms) {
  * @returns {void}
  */
 async function render() {
+	rendering = true;
 	let lastPosition = -1;
-	for (let i = 0; lyricsEnabled && i < lyricsData?.lines.length; i++) {
+	for (let i = 0; i < lyricsData?.lines.length; i++) {
 		const positionMs = lastSpotifyPosition + Date.now() - lastUnpauseTime - DISPLAY_DELAY_MS;
 
 		// If the user has rewound the song, restart the loop to regain our place
@@ -89,18 +95,22 @@ async function render() {
 
 		// Get the earliest line that is at or after the current position
 		const line = lyricsData.lines[i];
+		line.startTimeMs = parseInt(line.startTimeMs);
+		line.endTimeMs = parseInt(line.endTimeMs);
 		if (line.startTimeMs < positionMs) {
 			continue;
 		}
 		
 		// Wait until it's time to show the line
 		await delay(line.startTimeMs - positionMs);
+		if (!lyricsEnabled) return;
 
 		// Display the line
 		const { main, secondary } = parse(line.words);
 		secondaryLyrics.textContent = secondary;
 		mainLyrics.textContent = main;
 		show();
+		console.log(`(${i}) ${line.words}`);
 
 		// If the line contains an end time, set a timeout to clear the line
 		// at that time
@@ -110,6 +120,7 @@ async function render() {
 
 		lastPosition = positionMs;
 	}
+	rendering = false;
 }
 
 
@@ -125,6 +136,9 @@ async function onSongChange() {
 		// No lyrics found
 		return;
 	}
+	if (response.status !== 200) {
+		throw new Error("Unexpected response from Lyrics API: " + response.status);
+	}
 
 	const data = await response.json();
 	if (data.error) {
@@ -135,6 +149,7 @@ async function onSongChange() {
 		return;
 	}
 	lyricsData = data;
+	if (!rendering) render();
 }
 
 
@@ -175,7 +190,6 @@ async function refreshSpotifyStatus() {
 			}
 			break;
 		default:
-			// Unexpected response
 			throw new Error("Unexpected response from Spotify API: " + response.status);
 	}
 }
@@ -249,6 +263,18 @@ export default {
 				refreshSpotifyStatus();
 			}
 		});
+
+		let wpePosition = -1;
+		// const mediaTimelineListener = (event) => {
+		window.wallpaperRegisterMediaTimelineListener( (event) => {
+			if (event.position < wpePosition) {
+				// User rewound the song
+				console.log("Rewind");
+				refreshSpotifyStatus();
+			}
+			wpePosition = event.position;
+		});
+
 
 		/**
 		 * Update parameters from the UI.
