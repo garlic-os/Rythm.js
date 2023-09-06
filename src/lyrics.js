@@ -131,7 +131,7 @@ async function render() {
 async function onSongChange() {
 	clear();
 	const response = await fetch(`https://spotify-lyric-api.herokuapp.com/?trackid=${trackID}`);
-	// const response = await fetch("/test-lyrics.json");
+	// const response = await fetch("/test/lyrics.json");
 	if (response.status === 404) {
 		// No lyrics found
 		return;
@@ -161,7 +161,7 @@ async function refreshSpotifyStatus() {
 		await refreshAccessToken();
 	}
 	const response = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
-	// const response = await fetch("/test-currently-playing.json", {
+	// const response = await fetch("/test/currently-playing.json", {
 		headers: {
 			"Authorization": "Bearer " + spotifyAccessToken,
 			"Content-Type": "application/json"
