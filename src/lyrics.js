@@ -130,7 +130,9 @@ async function render() {
  */
 async function onSongChange() {
 	clear();
+	// const dateBeforeReq = Date.now();
 	const response = await fetch(`https://spotify-lyric-api.herokuapp.com/?trackid=${trackID}`);
+	// console.log(`Request took ${Date.now() - dateBeforeReq}ms`);
 	// const response = await fetch("/test/lyrics.json");
 	if (response.status === 404) {
 		// No lyrics found
