@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<title>Cilantro</title>
-		<link rel="stylesheet" href="./src/index.css">
-		<script type="module" src="./src/index.js" defer></script>
+		<link rel="stylesheet" href="style.css">
+		<script type="module" src="build/index.js" defer></script>
 	</head>
 	<body>
 		<p class="title row">&nbsp;</p>
@@ -14,6 +14,19 @@
 		<p class="secondary lyrics row">&nbsp;</p>
 		<p class="main lyrics row">&nbsp;</p>
 
-		<img src="./src/goal.png" class="goal" />
+		<!-- <img src="img/goal.png" class="goal" /> -->
+
+		<div class="status-stack">
+			<img
+				class="ratelimit hidden"
+				src="img/ratelimit.svg"
+				alt="Spotify rate limit hit. Should resolve itself in about 30 seconds."
+			/>
+			<img
+				class="error hidden"
+				src="img/error.svg"
+				alt="An error has occurred. Check the dev console for more details."
+			/>
+		</div>
 	</body>
 </html>

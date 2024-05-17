@@ -1,7 +1,9 @@
-import detector from "./beat-detector.js";
-import lyrics from "./lyrics.js";
+import type * as WPE from "./types/wpe.js";
 
-const girlfriends = document.querySelector(".girlfriends");
+import detector from "./beat-detector.js";
+import "./lyrics.js";
+
+const girlfriends = document.querySelector(".girlfriends")!;
 
 
 function go() {
@@ -20,12 +22,7 @@ function unscare() {
 }
 
 
-/**
- * Process incoming audio and update Pix and Bit accordingly.
- * Data format: https://docs.wallpaperengine.io/en/web/audio/visualizer.html
- * @param {number[]} frequencies - A Wallpaper Engine audio frame
- */
-function renderGirlfriends(frequencies) {
+const renderGirlfriends: WPE.AudioListener = (frequencies) => {
 	detector.analyse(frequencies);
 	if (detector.detectBeat(frequencies)) {
 		go();
@@ -37,7 +34,6 @@ function renderGirlfriends(frequencies) {
 
 
 window.wallpaperRegisterAudioListener(renderGirlfriends);
-lyrics.init();
 
 let keyHeld = false;
 document.addEventListener("keydown", (event) => {
