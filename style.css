@@ -1,0 +1,386 @@
+:root {
+	--pix-frame-1: url("img/pix1.png");
+	--pix-frame-2: url("img/pix2.png");
+	--pix-frame-3: url("img/pix3.png");
+	--bit-frame-1: url("img/bit1.png");
+	--bit-frame-2: url("img/bit2.png");
+	--bit-frame-3: url("img/bit3.png");
+	--frame-transition-duration: 66ms;
+}
+
+/* body.dev {
+	background-color: #000 !important;
+	background-image: none !important;
+}
+
+body.dev .girlfriends {
+	visibility: hidden !important;
+}
+
+body.dev .lyrics {
+	text-shadow: none !important;
+} */
+
+@keyframes bg-scroll {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 100vw -100vh;
+	}
+}
+
+@keyframes jitter {
+	/* Source: https://css-tricks.com/css-animation-tricks/ */
+	0% {
+		transform: translate(0, 0);
+	}
+	9.999% {
+		transform: translate(0, 0);
+	}
+	10% {
+		transform: translate(10px, 0);
+	}
+	19.999% {
+		transform: translate(10px, 0);
+	}
+	20% {
+		transform: translate(-10px, -4px);
+	}
+	29.999% {
+		transform: translate(-10px, -4px);
+	}
+	30% {
+		transform: translate(-6px, 0);
+	}
+	39.999% {
+		transform: translate(-6px, 0);
+	}
+	40% {
+		transform: translate(16px, 4px);
+	}
+	49.999% {
+		transform: translate(16px, 4px);
+	}
+	50% {
+		transform: translate(-10px, 8px);
+	}
+	59.999% {
+		transform: translate(-10px, 8px);
+	}
+	60% {
+		transform: translate(-20px, 12px);
+	}
+	69.999% {
+		transform: translate(-20px, 12px);
+	}
+	70% {
+		transform: translate(-14px, 15px);
+	}
+	79.999% {
+		transform: translate(-14px, 15px);
+	}
+	80% {
+		transform: translate(-12px, 4px);
+	}
+	89.999% {
+		transform: translate(-12px, 4px);
+	}
+	90% {
+		transform: translate(-6px,-15px);
+	}
+	99.999% {
+		transform: translate(-6px, -10px);
+	}
+	100% {
+		transform: translate(-2px, 4px);
+	}
+}
+
+/* Adds squash and stretch to the animation */
+@keyframes pix-to-frame-2 {
+	0% {
+		background-size: auto, 0;
+		transform: scaleY(0.95);
+	}
+	49.999% {
+		background-size: auto, 0;
+		transform: scaleY(0.95);
+	}
+	50% {
+		background-size: 0, auto;
+		transform: scaleY(1.05);
+	}
+	99.999% {
+		background-size: 0, auto;
+		transform: scaleY(1.05);
+	}
+	100% {
+		background-size: 0, auto;
+		transform: scaleY(1);
+	}
+}
+
+@keyframes pix-to-frame-1 {
+	0% {
+		background-size: 0, auto;
+		transform: scaleY(0.95);
+	}
+	49.999% {
+		background-size: 0, auto;
+		transform: scaleY(0.95);
+	}
+	50% {
+		background-size: auto, 0;
+		transform: scaleY(1.05);
+	}
+	99.999% {
+		background-size: auto, 0;
+		transform: scaleY(1.05);
+	}
+	100% {
+		background-size: auto, 0;
+		transform: scaleY(1);
+	}
+}
+
+@keyframes bit-to-frame-2 {
+	0% {
+		background-size: auto, 0;
+		transform: scaleY(0.95);
+		margin-top: initial;
+	}
+	49.999% {
+		background-size: auto, 0;
+		transform: scaleY(0.95);
+		margin-top: initial;
+	}
+	50% {
+		background-size: 0, auto;
+		transform: scaleY(1.05);
+		margin-top: 2rem; /* Magic number to make her eye level with Pix */
+	}
+	99.999% {
+		background-size: 0, auto;
+		transform: scaleY(1.05);
+		margin-top: 2rem;
+	}
+	100% {
+		background-size: 0, auto;
+		transform: scaleY(1);
+		margin-top: 2rem;
+	}
+}
+
+@keyframes bit-to-frame-1 {
+	0% {
+		background-size: 0, auto;
+		transform: scaleY(0.95);
+		margin-top: 2rem;
+	}
+	49.999% {
+		background-size: 0, auto;
+		transform: scaleY(0.95);
+		margin-top: 2rem;
+	}
+	50% {
+		background-size: auto, 0;
+		transform: scaleY(1.05);
+		margin-top: initial;
+	}
+	99.999% {
+		background-size: auto, 0;
+		transform: scaleY(1.05);
+		margin-top: initial;
+	}
+	100% {
+		background-size: auto, 0;
+		transform: scaleY(1);
+		margin-top: initial;
+	}
+}
+
+body {
+	margin: 0;
+	background-image: url("img/space.png");
+	animation: bg-scroll 120s linear infinite;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.row {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.title {
+	top: 24px;
+	font-size: 200pt;
+	margin: 0;
+	color: orange;
+}
+
+.girlfriends {
+	top: 220px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pix,
+.bit {
+	background-repeat: no-repeat;
+	background-size: auto, 0;
+	background-position: center;
+	transform-origin: bottom;
+	width: 476px;
+	height: 584px;
+}
+
+.pix {
+	background-image: var(--pix-frame-1), var(--pix-frame-2);
+	margin-top: 2.5rem;
+	margin-left: 1rem;
+	margin-right: 3rem;
+}
+
+.bit {
+	background-image: var(--bit-frame-1), var(--bit-frame-2);
+}
+
+.girlfriends.frame1 > .pix {
+	animation: pix-to-frame-1 var(--frame-transition-duration) linear forwards;
+}
+
+.girlfriends.frame2 > .pix {
+	animation: pix-to-frame-2 var(--frame-transition-duration) linear forwards;
+}
+
+.girlfriends.frame1 > .bit {
+	animation: bit-to-frame-1 var(--frame-transition-duration) linear forwards;
+}
+
+.girlfriends.frame2 > .bit {
+	animation: bit-to-frame-2 var(--frame-transition-duration) linear forwards;
+}
+
+.girlfriends.scared > div {
+	/* background-color: red; */
+	animation: jitter 500ms linear infinite;
+}
+
+.girlfriends.scared > .bit {
+	animation-delay: -100ms;
+}
+
+.girlfriends.scared > .pix {
+	background-image: var(--pix-frame-3), var(--pix-frame-3);
+}
+
+.girlfriends.scared > .bit {
+	background-image: var(--bit-frame-3), var(--bit-frame-3);
+}
+
+.girlfriends > div::after {
+	content: "";
+	display: block;
+	opacity: 0;
+	position: relative;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 110px;
+	height: 110px;
+	animation: jitter 500ms linear infinite;
+}
+
+.pix::after {
+	left: -40px; top: 125px;
+	background-image: url("img/pix-ring.png");
+	animation-delay: -200ms;
+}
+
+.bit::after {
+	left: 170px; top: -40px;
+	background-image: url("img/bit-tiara.png");
+	animation-delay: -400ms;
+}
+
+.girlfriends.scared > div::after {
+	opacity: 1;
+}
+
+.lyrics {
+	--stroke-width: 3px;
+	--stroke-color: #000;
+	color: #FFE206;
+	width: 200%;
+	transform: translateX(-50%) scaleX(0.65);
+	text-align: center;
+	font-size: 70px;
+	font-family: Courier, monospace;
+	font-weight: bold;
+	letter-spacing: 6px;
+	margin: 0;
+	text-shadow: /* Smooth text outline */
+				 /* Source: https://dev.to/codingdudecom/everything-about-stroke-text-in-css-561i */
+				 var(--stroke-width) 0 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.9239) calc(var(--stroke-width) * 0.3827) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.7071) calc(var(--stroke-width) * 0.7071) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.3827) calc(var(--stroke-width) * 0.9239) 0 var(--stroke-color),
+				 0 var(--stroke-width) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.3827) calc(var(--stroke-width) * 0.9239) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.7071) calc(var(--stroke-width) * 0.7071) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.9239) calc(var(--stroke-width) * 0.3827) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -1) 0 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.9239) calc(var(--stroke-width) * -0.3827) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.7071) calc(var(--stroke-width) * -0.7071) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * -0.3827) calc(var(--stroke-width) * -0.9239) 0 var(--stroke-color),
+				 0 calc(var(--stroke-width) * -1) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.3827) calc(var(--stroke-width) * -0.9239) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.7071) calc(var(--stroke-width) * -0.7071) 0 var(--stroke-color),
+				 calc(var(--stroke-width) * 0.9239) calc(var(--stroke-width) * -0.3827) 0 var(--stroke-color),
+				 0 0 85px #FFF, /* White glow */
+				 0 0 50px #FFF;
+}
+
+.lyrics.main {
+	bottom: 80px;
+}
+
+.lyrics.secondary {
+	bottom: 160px; 
+	color: #E487CE;
+}
+
+
+.status-stack {
+	position: absolute;
+	right: 2rem;
+	top: 2rem;
+	width: 5rem;
+
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.status-stack > img {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+}
+
+.hidden {
+	display: none;
+}
+
+
+.goal {
+	position: absolute;
+	left: 0; top: 0;
+	width: 100vw;
+	height: 100vh;
+	opacity: 0.5;
+	display: none;
+}
